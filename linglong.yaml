@@ -1,0 +1,30 @@
+version: "1"
+
+package:
+  id: io.github.LisaBackup
+  name: LisaBackup
+  version: 0.4.0.1
+  kind: app
+  description: |
+    A backup application for the Linux Desktop
+
+command:
+  - /opt/apps/io.github.LisaBackup/files/bin/LisaBackup
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+sources:
+  - kind: git
+    url: https://github.com/otsakir/lisa-backup.git
+    version: master
+    commit: 3a20d2a81e50f9d27c01fcad42c21b72f0f31a70
+
+build: |
+  cd /project/linglong/sources/lisa-backup.git
+  git apply ../../../0001-install.patch
+  mkdir -p build
+  cd build
+  cmake .. \
+        -DCMAKE_INSTALL_PREFIX=${PREFIX}
+  cmake --build . --target install -j$(nproc --all)

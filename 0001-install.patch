@@ -1,0 +1,60 @@
+From e4c34b8062da3ce58f9ebfd33044cbcddea376a6 Mon Sep 17 00:00:00 2001
+From: wjyrich <1071633242@qq.com>
+Date: Thu, 19 Sep 2024 11:35:07 +0800
+Subject: [PATCH] install
+
+---
+ App/CMakeLists.txt     |  8 ++++++++
+ App/LisaBackup.desktop | 11 +++++++++++
+ CMakeLists.txt         |  2 ++
+ 3 files changed, 21 insertions(+)
+ create mode 100644 App/LisaBackup.desktop
+
+diff --git a/App/CMakeLists.txt b/App/CMakeLists.txt
+index 82f36da..087dcfe 100644
+--- a/App/CMakeLists.txt
++++ b/App/CMakeLists.txt
+@@ -44,3 +44,11 @@ add_executable(LisaBackup
+ target_link_libraries(LisaBackup PRIVATE Qt5::Widgets LisaBackuplib)
+ 
+ 
++install(TARGETS LisaBackuplib
++             DESTINATION lib)
++
++install(FILES custom-icons/backup-icon-tray.png
++        DESTINATION share/icons)
++
++install(FILES LisaBackup.desktop
++            DESTINATION share/applications)
+\ No newline at end of file
+diff --git a/App/LisaBackup.desktop b/App/LisaBackup.desktop
+new file mode 100644
+index 0000000..3f3ee57
+--- /dev/null
++++ b/App/LisaBackup.desktop
+@@ -0,0 +1,11 @@
++[Desktop Entry]
++Categories=Accessibility;Qt;Utility;
++Exec=LisaBackup
++Name=LisaBackup
++Name[zh_CN]=LisaBackup
++Icon=backup-icon-tray
++StartupNotify=false
++Terminal=false
++Type=Application
++GenericName=LisaBackup
++Version=0.4
+\ No newline at end of file
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 3059901..8ef1b8d 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -49,3 +49,5 @@ add_subdirectory(App)
+ 
+ 
+ add_subdirectory(Tests)
++install(TARGETS ${PROJECT_NAME}
++             DESTINATION bin)
+-- 
+2.43.4
+
